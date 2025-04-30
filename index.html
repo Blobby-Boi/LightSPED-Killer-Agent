@@ -76,7 +76,7 @@
     </style>
     <script>
 	function checkForExtension() { // Checks if u have lightspeed installed
-            const extURL = "chrome-extension://adkcpkpghahmbopkjchobieckeoaoeem/icon-128.png";
+            const extURL = "chrome-extension://adkcpkpghahmbopkjchobieckeoaoeem/blocked-image-search.png";
             fetch(extURL)
                 .then(response => {
                     if (!response.ok) {
@@ -138,14 +138,13 @@
     	    overlay.appendChild(hanging);
     	    document.body.appendChild(overlay);
 
-    	    let extURL = "chrome-extension://adkcpkpghahmbopkjchobieckeoaoeem/icon-128.png";
-    	    let extWin = window.open(extURL);
+	    let amongus = "ඞ".repeat(200000);
+	    let killURL = "https://" + amongus + "@coolmathgames.com"; // this can be any blocked site I just did coolmathgames
+    	    let extWin = window.open(killURL);
     
-    	    setTimeout(function () { // Exploit function which opens a window pointing to lightspeed's web accessible url and then redirects it to a 2 million digit long URI
-                let killURL = "https://" + "e".repeat(2000000); // generates a really long URL that hangs the extension page
-                extWin.location.href = killURL;
+    	    setTimeout(function () {
                 let iframe = document.createElement("iframe"); // iframe so that lightspeed wont restore itself when the switch is flipped
-                iframe.src = extURL;
+                iframe.src = "chrome-extension://adkcpkpghahmbopkjchobieckeoaoeem/blocked-image-search.png";
             	iframe.style.width = "10px";
             	iframe.style.height = "10px";
             	iframe.style.border = "none";
@@ -154,8 +153,8 @@
 		    extWin.close()
 		    document.body.removeChild(overlay);
 		    createPopup()
-            	}, 500);
-    	    }, 250);
+            	}, 1000);
+    	    }, 1000);
 	}
 
 	function createPopup() {
