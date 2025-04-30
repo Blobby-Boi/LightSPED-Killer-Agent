@@ -84,6 +84,7 @@
                 	launchButton.remove();
             		const message = document.createElement("p");
             	        message.innerText = "You don't have Lightspeed Filter Agent installed.";
+			message.style.userSelect = "none";
                         document.body.appendChild(message);
                     }
                 })
@@ -92,6 +93,7 @@
                     launchButton.remove();
             	    const message = document.createElement("p");
             	    message.innerText = "You don't have Lightspeed Filter Agent installed.";
+		    message.style.userSelect = "none";
                     document.body.appendChild(message);
                 });
         }
