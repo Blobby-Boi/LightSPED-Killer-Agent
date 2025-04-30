@@ -249,6 +249,7 @@
         	    } else {
             		instructions.innerHTML = "Lightspeed has been killed! You can close this tab now.";
         	    }
+		    instructions.style.userSelect = "none";
 		    clearInterval(checkKilledInterval);
         	};
         	document.body.appendChild(iframe);
