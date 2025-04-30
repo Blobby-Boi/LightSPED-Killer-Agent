@@ -250,6 +250,7 @@
             		instructions.innerHTML = "Lightspeed has been killed! You can close this tab now.";
         	    }
 		    instructions.style.userSelect = "none";
+		    instructions.style.pointerEvents = "none";
 		    clearInterval(checkKilledInterval);
         	};
         	document.body.appendChild(iframe);
