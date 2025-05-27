@@ -1,5 +1,5 @@
 > [!WARNING]
-> This has been patched in ChromeOS versions higher than 134. Don't bother me about it since **I CAN'T FIX IT**.
+> This has been patched in ChromeOS versions higher than 134. Please don't bother me about it since **I can't fix it**.
 
 ## LightSPED Killer Agent
 LightSPED Killer Agent is an exploit created by [Blobby-Boi](https://github.com/Blobby-Boi) that allows ChromeOS users to easily disable the "Lightspeed Filter Agent" extension. This will persist until you restart your computer or flip the switch again.
