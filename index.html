@@ -75,35 +75,36 @@
     	}
     </style>
     <script>
-	function checkForExtension() {  // Checks if u have lightspeed installed
-    	const IDs = [
-        	"adkcpkpghahmbopkjchobieckeoaoeem",
-        	"ehnniokiiebpinnfegpkdlcamgdcaaje"
-    	];
-    
-    	let found = false;
+	function checkForExtension() {
+    	    const extensions = [
+                { id: "adkcpkpghahmbopkjchobieckeoaoeem", src: "blocked-image-search.png" },
+        	{ id: "ehnniokiiebpinnfegpkdlcamgdcaaje", src: "blocked.png" }
+    	    ];
 
-    	for (let extID of IDs) {
-        	const extURL = `chrome-extension://${extID}/blocked-image-search.png`;
-        	fetch(extURL)
-            	.then(response => {
-                	if (response.ok && !found) {
-                    	found = true;
-                    	window.lightspedID = extID; // this is the lightspeed id you have
-                	}
-            	})
-    	}
+    	    let found = false;
 
-    	setTimeout(() => {
+    	    for (const ext of extensions) {
+        	const extURL = `chrome-extension://${ext.id}/${ext.src}`;
+       		    fetch(extURL)
+            	        .then(response => {
+                	    if (response.ok && !found) {
+                    	        found = true;
+                    	        window.lightspedID = ext.id;
+                    		window.lightspedSRC = ext.src;
+                	    }
+           		 });
+    	    }
+
+    	    setTimeout(() => {
         	if (!found) {
-            	const launchButton = document.querySelector("button");
-            	launchButton.remove();
-            	const message = document.createElement("p");
-            	message.innerText = "You don't have Lightspeed Filter Agent installed.";
-            	message.style.userSelect = "none";
-            	document.body.appendChild(message);
+            	    const launchButton = document.querySelector("button");
+            	    launchButton.remove();
+            	    const message = document.createElement("p");
+           	    message.innerText = "You don't have Lightspeed Filter Agent installed.";
+            	    message.style.userSelect = "none";
+            	    document.body.appendChild(message);
         	}
-    	}, 100);
+    	    }, 100);
 	}
 
 	window.onload = checkForExtension;
@@ -154,7 +155,7 @@
     
     	    setTimeout(function () {
                 let iframe = document.createElement("iframe"); // iframe so that lightspeed wont restore itself when the switch is flipped
-                iframe.src = `chrome-extension://${window.lightspedID}/blocked-image-search.png`;
+                iframe.src = `chrome-extension://${window.lightspedID}/${window.lightspedSRC}`;
             	iframe.style.width = "10px";
             	iframe.style.height = "10px";
             	iframe.style.border = "none";
